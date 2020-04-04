@@ -1,7 +1,9 @@
-const express = require('express')
-const router = express.Router()
-const db = require('../models')
-const User = db.User
-const Record = db.Record
-
-module.exports = router
+module.exports = {
+  authenticated: (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return next()
+    }
+    req.flash('warning_msg', '請先登入才能使用')
+    res.redirect('/users/login')
+  }
+}

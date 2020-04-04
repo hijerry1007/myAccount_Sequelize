@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const db = require('../models')
 const User = db.User
-const Record = db.Record
+const Record = db.record
 
 const category = require('../data/category.json').category
 const month = require('../data/month.json').month
@@ -31,7 +31,6 @@ router.get('/', authenticated, (req, res) => {
         })
       })
       .then((records) => {
-        console.log(records)
         let totalPages = Math.ceil(records.length / pageSize) || 1
         const pages = []
         for (let i = 1; i < totalPages + 1; i++) {
@@ -60,8 +59,6 @@ router.get('/', authenticated, (req, res) => {
         })
       })
       .then((records) => {
-        console.log(records)
-
         let totalAmount = 0
         for (let i = 0; i < records.length; i++) {
           totalAmount += records[i].amount

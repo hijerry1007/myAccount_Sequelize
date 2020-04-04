@@ -44,6 +44,16 @@ app.use((req, res, next) => {
   next()
 })
 
+handlebar.registerHelper('isSelected', function (selected, current, options) {
+  return selected === current ? 'selected' : ''
+})
+
+handlebar.registerHelper('if_equal', function (category, input, options) {
+  if (category === input) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
 // 路由
 app.use('/', require('./routes/home'))
 app.use('/record', require('./routes/records'))
@@ -53,8 +63,4 @@ app.use('/auth', require('./routes/auths'))
 // 設定 express port 3000
 app.listen(process.env.PORT || port, () => {
   console.log(`App is running on port ${port}!`)
-})
-
-handlebar.registerHelper('isSelected', function (selected, current, options) {
-  return selected === current ? 'selected' : ''
 })

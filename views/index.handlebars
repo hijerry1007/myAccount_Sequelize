@@ -90,9 +90,9 @@
           </td>
           <td>{{{this.amount}}}</td>
           <td>{{this.date}}</td>
-          <td><a href="/record/{{{this._id}}}/edit" class="btn btn-secondary edit">修改</a></td>
+          <td><a href="/record/{{{this.id}}}/edit" class="btn btn-secondary edit">修改</a></td>
           <td>
-            <form action="/record/{{{this._id}}}?_method=DELETE" method="POST" style="display: inline;">
+            <form action="/record/{{{this.id}}}?_method=DELETE" method="POST" style="display: inline;">
               <button type="submit" class="btn btn-danger btn-front">刪除</button>
             </form>
           </td>

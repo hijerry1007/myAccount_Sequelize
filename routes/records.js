@@ -7,10 +7,10 @@ const { authenticated } = require('../config/auth')
 
 // 設定record路由
 
-// 列出全部record
-router.get('/', authenticated, (req, res) => {
-  res.redirect('/')
-})
+// // 列出全部record
+// router.get('/', authenticated, (req, res) => {
+//   res.redirect('/')
+// })
 
 // 新增一筆record頁
 router.get('/new', authenticated, (req, res) => {

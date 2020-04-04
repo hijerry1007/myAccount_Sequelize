@@ -1,0 +1,61 @@
+<div class="container mt-3 form-group">
+  <form action="/record/chart" method="GET">
+    <div class="row">
+      <div class="col-3">
+        <div class="input-group date" id="datetimepicker1">
+          <h5 class="text-muted mt-1 mr-1">選擇從</h5>
+          <input class="form-control form-control" type="date" placeholder="date" name="dateBeg">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="input-group date" id="datetimepicker1">
+          <h5 class="text-muted mr-1 mt-1">到</h5>
+          <input class="form-control form-control" type="date" placeholder="date" name="dateEnd">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </div>
+      <div class="col-3">
+        <select name="selectedCategory" class="form-control">
+          <option value="all">全部類別</option>
+          {{#each category}}
+          <option value="{{this.category_name}}" {{isSelected ../selectedCategory this.category_name}}>
+            {{this.category_name}}
+          </option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="col-1">
+        <button type="submit" class="btn btn-primary">篩選</button>
+      </div>
+      <div class="col-2">
+        <a href="/" class="btn btn-primary">回到列表</a>
+      </div>
+    </div>
+  </form>
+  <div class="row">{{> messages}}</div>
+  <div class="row mt-5 mb-5">
+    <div class="col">
+      <h2>總金額: {{{totalAmount}}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">家居物業:<div id="homeAmount">{{homeAmount}}</div>
+    </div>
+    <div class="col-2">餐飲食品:<div id="foodAmount">{{foodAmount}}</div>
+    </div>
+    <div class="col-2">運輸交通:<div id="transportAmount">{{transportAmount}}</div>
+    </div>
+    <div class="col-2">休閒娛樂: <div id="entertainmentAmount">{{entertainmentAmount}}</div>
+    </div>
+    <div class="col-2">其他:<div id="otherAmount">{{otherAmount}}</div>
+    </div>
+  </div>
+  <div class="row" style="width:400px;height:400px">
+    <div class="col"><canvas id="canvasPie"></canvas></div>
+  </div>
+</div>

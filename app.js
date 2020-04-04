@@ -45,16 +45,10 @@ app.use((req, res, next) => {
 })
 
 // 路由
-// 首頁
-app.get('/', (req, res) => {
-  res.send('hello world')
-})
-
-
-// app.use('/', require('./routes/home'))
-// app.use('/record', require('./routes/records'))
+app.use('/', require('./routes/home'))
+app.use('/record', require('./routes/records'))
 app.use('/users', require('./routes/user'))
-// app.use('/auth', require('./routes/auths'))
+app.use('/auth', require('./routes/auths'))
 
 // 設定 express port 3000
 app.listen(process.env.PORT || port, () => {

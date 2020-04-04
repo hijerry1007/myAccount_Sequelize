@@ -4,6 +4,7 @@ const db = require('../models')
 const User = db.User
 const Record = db.record
 const { authenticated } = require('../config/auth')
+const category = require('../data/category.json').category
 
 // 設定record路由
 
@@ -114,6 +115,190 @@ router.delete('/:id', authenticated, (req, res) => {
 })
 
 
+// 圖表頁面
+// router.get('/chart', authenticated, (req, res) => {
 
+//   let { dateBeg, dateEnd, selectedCategory } = req.query
+//   let errors = []
+//   console.log(dateBeg)
+//   if (!dateBeg && !dateEnd && !selectedCategory) {
+//     errors.push({ message: '您可以輸入要篩選的時間與類別' })
+
+//     User.findByPk(req.user.id)
+//       .then((user) => {
+//         if (!user) throw new Error("user not found")
+//         return Record.findAll({
+//           raw: true,
+//           nest: true,
+//           where: { UserId: req.user.id, }
+//         })
+//       })
+//       .then((records) => {
+//         let homeAmount = 0
+//         let foodAmount = 0
+//         let transportAmount = 0
+//         let entertainmentAmount = 0
+//         let otherAmount = 0
+//         records.forEach(record => {
+//           homeAmount += record.categoryAmount[0]
+//           foodAmount += record.categoryAmount[1]
+//           transportAmount += record.categoryAmount[2]
+//           entertainmentAmount += record.categoryAmount[3]
+//           otherAmount += record.categoryAmount[4]
+//         })
+
+//         let totalAmount = homeAmount + foodAmount + transportAmount + entertainmentAmount + otherAmount
+//         return res.render('chart', { records, totalAmount, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount, category: category, errors })
+//       })
+//       .catch((error) => {
+//         return res.status(422).json(error)
+//       })
+//   }
+//   else if (dateBeg === '' && dateEnd === '' && selectedCategory !== '') {
+//     //有類別沒時間
+//     User.findByPk(req.user.id)
+//       .then((user) => {
+//         if (!user) throw new Error('User is not found')
+//         console.log(selectedCategory)
+//         return Record.findAll({
+//           raw: true,
+//           nest: true,
+//           where: { category: selectedCategory }
+//         })
+//       })
+//       .then((records) => {
+//         let homeAmount = 0
+//         let foodAmount = 0
+//         let transportAmount = 0
+//         let entertainmentAmount = 0
+//         let otherAmount = 0
+//         records.forEach(record => {
+//           homeAmount += record.categoryAmount[0]
+//           foodAmount += record.categoryAmount[1]
+//           transportAmount += record.categoryAmount[2]
+//           entertainmentAmount += record.categoryAmount[3]
+//           otherAmount += record.categoryAmount[4]
+//         })
+
+//         let totalAmount = homeAmount + foodAmount + transportAmount + entertainmentAmount + otherAmount
+//         return res.render('chart', { records, totalAmount, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount, category: category })
+//       })
+//       .catch((error) => {
+//         return res.status(422).json(error)
+//       })
+
+//   }
+//   else if ((dateBeg === '' && dateEnd !== '') || (dateBeg !== '' && dateEnd === '')) {
+//     //錯誤情形
+//     errors.push({ message: '請選擇要搜尋的起始及結束的時間' })
+//     User.findByPk(req.user.id)
+//       .then((user) => {
+//         if (!user) throw new Error("user not found")
+//         return Record.findAll({
+//           raw: true,
+//           nest: true,
+//           where: { UserId: req.user.id, }
+//         })
+//       })
+//       .then((records) => {
+//         let homeAmount = 0
+//         let foodAmount = 0
+//         let transportAmount = 0
+//         let entertainmentAmount = 0
+//         let otherAmount = 0
+//         records.forEach(record => {
+//           homeAmount += record.categoryAmount[0]
+//           foodAmount += record.categoryAmount[1]
+//           transportAmount += record.categoryAmount[2]
+//           entertainmentAmount += record.categoryAmount[3]
+//           otherAmount += record.categoryAmount[4]
+//         })
+
+//         let totalAmount = homeAmount + foodAmount + transportAmount + entertainmentAmount + otherAmount
+//         return res.render('chart', { records, totalAmount, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount, category: category })
+//       })
+//       .catch((error) => {
+//         return res.status(422).json(error)
+//       })
+
+//   }
+//   else if (dateBeg !== '' && dateEnd !== '') {
+//     if (selectedCategory === 'all') {
+//       User.findByPk(req.user.id)
+//         .then((user) => {
+//           if (!user) throw new Error('User is not found')
+
+//           return Record.findAll({
+//             raw: true,
+//             nest: true,
+//             where: {
+//               date: {
+//                 [Op.gte]: dateBeg,
+//                 [Op.lte]: dateEnd
+//               }
+//             }
+//           })
+//         })
+//         .then((records) => {
+//           let homeAmount = 0
+//           let foodAmount = 0
+//           let transportAmount = 0
+//           let entertainmentAmount = 0
+//           let otherAmount = 0
+//           records.forEach(record => {
+//             homeAmount += record.categoryAmount[0]
+//             foodAmount += record.categoryAmount[1]
+//             transportAmount += record.categoryAmount[2]
+//             entertainmentAmount += record.categoryAmount[3]
+//             otherAmount += record.categoryAmount[4]
+//           })
+
+//           let totalAmount = homeAmount + foodAmount + transportAmount + entertainmentAmount + otherAmount
+//           return res.render('chart', { records, totalAmount, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount, category: category })
+//         })
+//         .catch((error) => {
+//           return res.status(422).json(error)
+//         })
+//     }
+//     else {
+//       User.findByPk(req.user.id)
+//         .then((user) => {
+//           if (!user) throw new Error('User is not found')
+
+//           return Record.findAll({
+//             raw: true,
+//             nest: true,
+//             where: {
+//               category: selectedCategory,
+//               $and: [
+//                 { date: { $gte: dateBeg } },
+//                 { date: { $lte: dateEnd } }
+//               ]
+//             }
+//           })
+//         })
+//         .then((records) => {
+//           let homeAmount = 0
+//           let foodAmount = 0
+//           let transportAmount = 0
+//           let entertainmentAmount = 0
+//           let otherAmount = 0
+//           records.forEach(record => {
+//             homeAmount += record.categoryAmount[0]
+//             foodAmount += record.categoryAmount[1]
+//             transportAmount += record.categoryAmount[2]
+//             entertainmentAmount += record.categoryAmount[3]
+//             otherAmount += record.categoryAmount[4]
+//           })
+
+//           let totalAmount = homeAmount + foodAmount + transportAmount + entertainmentAmount + otherAmount
+//           return res.render('chart', { records, totalAmount, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount, category: category })
+//         })
+//         .catch((error) => {
+//           return res.status(422).json(error)
+//         })
+//     }
+//   }
+// })
 
 module.exports = router

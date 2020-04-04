@@ -1,0 +1,35 @@
+.container{
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  width: 1000px;
+}
+
+.row {
+  justify-content: center;
+}
+
+ul.nav.nav-pills{
+  justify-content: center;
+}
+
+.th_blank{
+  width: 10%;
+}
+
+.nav-background{
+  width: 100%;
+  height: 150px;
+  background: url("https://pic.52112.com/180807/EPS-180807_12/33KFUQg9Wi_small.jpg?fbclid=IwAR2yPh9wCJV7xBRs84KqZQf9sF_oT9wsZPw_zKj2JZMfNZTG1fVHDjF0HlI");
+  Opacity: 0.7;    
+}
+
+#pagination{
+  display: flex;
+  justify-content: center;
+}
+
+#flotcontainer {
+width: 250px;
+height: 250px;
+}

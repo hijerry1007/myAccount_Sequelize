@@ -1,18 +1,10 @@
-//折線圖 需要規定金額
-
 // 圓餅圖
-//資料標題
-
-
-
 function changeData() {
   var labels = ['家居物業', '餐飲食品', '運輸交通', '休閒娛樂', '其他'];
-
   var ctx = document.getElementById('canvasPie').getContext('2d');
   var pieChart = new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: labels,
       datasets: [{
         //預設資料
         data: [0, 0, 0, 0, 0],
@@ -20,7 +12,7 @@ function changeData() {
           //資料顏色
           "#00A1FF",
           "#FF0004",
-          "#F9F900",
+          "#00BB00",
           "#6C3365",
           "#272727"
         ],

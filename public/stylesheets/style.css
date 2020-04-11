@@ -1,14 +1,24 @@
-.container{
+.box{
   display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  width: 1000px;
+  flex-flow: row nowrap;
+  margin-top: 5px;
+}
+
+.chart{
+ width: 100px;
+ margin: 5rem;
+ font-family: Georgia, 'Times New Roman', Times, serif;
+ font-size: medium;
 }
 
 .row {
   justify-content: center;
 }
 
+.main{
+  width: 1000px;
+  margin-left: 10em;
+}
 ul.nav.nav-pills{
   justify-content: center;
 }
@@ -27,6 +37,7 @@ ul.nav.nav-pills{
 #pagination{
   display: flex;
   justify-content: center;
+  margin-top: 3em;
 }
 
 #flotcontainer {

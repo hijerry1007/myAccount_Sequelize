@@ -1,121 +1,147 @@
-<div class="container mt-3 form-group">
-  <form action="/search" method="GET">
-    <div class="row">
-      <div class="col-8">
-        <div class="form-group">
-          <input class="form-control form-control-lg" type="text" name="keyword" placeholder="請輸入想搜尋的商家" id="inputLarge"
-            value="{{keyword}}">
-        </div>
+<div class="box">
+  <div class="row">
+    <div class="chart">
+      <div style="background-color: #00A1FF; color: white; text-align:center">家居物業</div>
+      <div style="text-align:center" id="homeAmount">{{homeAmount}}</div>
+      <div style="background-color: #FF0004; color: white; text-align:center">餐飲食品</div>
+      <div style="text-align:center" id="foodAmount">{{foodAmount}}</div>
+      <div style="background-color: #00BB00; color: white; text-align:center">運輸交通</div>
+      <div style="text-align:center" id="transportAmount">{{transportAmount}}</div>
+      <div style="background-color: #6C3365; color: white; text-align:center">休閒娛樂</div>
+      <div style="text-align:center" id="entertainmentAmount">{{entertainmentAmount}}</div>
+      <div style="background-color: #272727; color: white; text-align:center">其他</div>
+      <div style="text-align:center" id="otherAmount">{{otherAmount}}</div>
+      <div style="width:200px;height:200px">
+        <div><canvas id="canvasPie"></canvas></div>
       </div>
-      <div class="col-2"><button type="submit" class="btn btn-primary">搜尋</button></div>
     </div>
-  </form>
-  <form action="/" method="GET">
-    <div class="row">
-      <div class="col-3">
-        <div class="input-group date" id="datetimepicker1">
-          <h5 class="text-muted mt-1 mr-1">選擇從</h5>
-          <input class="form-control form-control" type="date" placeholder="date" name="dateBeg">
-          <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-          </span>
+
+    <div class="main">
+      <div class="mt-3 form-group">
+        <form action="/search" method="GET">
+          <div class="row">
+            <div class="col-8">
+              <div class="form-group">
+                <input class="form-control form-control-lg" type="text" name="keyword" placeholder="請輸入想搜尋的商家"
+                  id="inputLarge" value="{{keyword}}">
+              </div>
+            </div>
+            <div class="col-2"><button type="submit" class="btn btn-primary">搜尋</button></div>
+          </div>
+        </form>
+        <form action="/" method="GET">
+          <div class="row">
+            <div class="col-3">
+              <div class="input-group date" id="datetimepicker1">
+                <h5 class="text-muted mt-1 mr-1">選擇從</h5>
+                <input class="form-control form-control" type="date" placeholder="date" name="dateBeg">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="input-group date" id="datetimepicker1">
+                <h5 class="text-muted mr-1 mt-1">到</h5>
+                <input class="form-control form-control" type="date" placeholder="date" name="dateEnd">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+            <div class="col-3">
+              <select name="selectedCategory" class="form-control">
+                <option value="all">全部類別</option>
+                {{#each category}}
+                <option value="{{this.category_name}}" {{isSelected ../selectedCategory this.category_name}}>
+                  {{this.category_name}}
+                </option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="col-1">
+              <button type="submit" class="btn btn-primary">篩選</button>
+            </div>
+        </form>
+      </div>
+      <div class="row">{{> messages}}</div>
+      <div class="row mt-5 mb-5">
+        <div class="col">
+          <h2>總金額: {{{totalAmount}}}</h2>
         </div>
       </div>
-      <div class="col-3">
-        <div class="input-group date" id="datetimepicker1">
-          <h5 class="text-muted mr-1 mt-1">到</h5>
-          <input class="form-control form-control" type="date" placeholder="date" name="dateEnd">
-          <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-          </span>
+      <div class="row mt-5">
+        <div class="col">
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">類別</th>
+                <th scope="col">名稱</th>
+                <th scope="col">商家</th>
+                <th scope="col">金額</th>
+                <th scope="col">時間</th>
+                <th scope="col" class="th_blank"></th>
+                <th scope="col" class="th_blank"><a class="btn btn-outline-primary btn-lg" href="/record/new">新增</a>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each pageData}}
+              <tr class="table-success" style="line-height: 45px;">
+                <th scope="row">
+                  {{#if_equal category '家居物業'}}<i class="fas fa-home"></i>
+                  {{/if_equal}}
+                  {{#if_equal category '餐飲食品'}}<i class="fas fa-utensils"></i>
+                  {{/if_equal}}
+                  {{#if_equal category '運輸交通'}}<i class="fas fa-shuttle-van"></i>
+                  {{/if_equal}}
+                  {{#if_equal category '休閒娛樂'}}<i class="fas fa-grin-beam"></i>
+                  {{/if_equal}}
+                  {{#if_equal category '其他'}}<i class="fas fa-pen"></i>
+                  {{/if_equal}}
+                  {{{this.category}}}</th>
+                <td>{{{this.name}}}
+                <td>{{{this.shop}}}</td>
+                </td>
+                <td>{{{this.amount}}}</td>
+                <td>{{this.date}}</td>
+                <td><a href="/record/{{{this.id}}}/edit" class="btn btn-secondary edit">修改</a></td>
+                <td>
+                  <form action="/record/{{{this.id}}}?_method=DELETE" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger btn-front">刪除</button>
+                  </form>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="col-3">
-        <select name="selectedCategory" class="form-control">
-          <option value="all">全部類別</option>
-          {{#each category}}
-          <option value="{{this.category_name}}" {{isSelected ../selectedCategory this.category_name}}>
-            {{this.category_name}}
-          </option>
-          {{/each}}
-        </select>
-      </div>
-      <div class="col-1">
-        <button type="submit" class="btn btn-primary">篩選</button>
-      </div>
-      <div class="col-2">
-        {{!-- <a href="/record/chart" class="btn btn-primary">圖表分析</a> --}}
-      </div>
-  </form>
-</div>
-<div class="row">{{> messages}}</div>
-<div class="row mt-5 mb-5">
-  <div class="col">
-    <h2>總金額: {{{totalAmount}}}</h2>
-  </div>
-</div>
-<div class="row mt-5">
-  <div class="col">
+      <div class="row">
+        <div class="col" id="pagination">
+          <ul class="pagination">
 
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">類別</th>
-          <th scope="col">名稱</th>
-          <th scope="col">商家</th>
-          <th scope="col">金額</th>
-          <th scope="col">時間</th>
-          <th scope="col" class="th_blank"></th>
-          <th scope="col" class="th_blank"><a class="btn btn-outline-primary btn-lg" href="/record/new">新增</a>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each pageData}}
-        <tr class="table-success" style="line-height: 45px;">
-          <th scope="row">
-            {{#if_equal category '家居物業'}}<i class="fas fa-home"></i>
-            {{/if_equal}}
-            {{#if_equal category '餐飲食品'}}<i class="fas fa-utensils"></i>
-            {{/if_equal}}
-            {{#if_equal category '運輸交通'}}<i class="fas fa-shuttle-van"></i>
-            {{/if_equal}}
-            {{#if_equal category '休閒娛樂'}}<i class="fas fa-grin-beam"></i>
-            {{/if_equal}}
-            {{#if_equal category '其他'}}<i class="fas fa-pen"></i>
-            {{/if_equal}}
-            {{{this.category}}}</th>
-          <td>{{{this.name}}}
-          <td>{{{this.shop}}}</td>
-          </td>
-          <td>{{{this.amount}}}</td>
-          <td>{{this.date}}</td>
-          <td><a href="/record/{{{this.id}}}/edit" class="btn btn-secondary edit">修改</a></td>
-          <td>
-            <form action="/record/{{{this.id}}}?_method=DELETE" method="POST" style="display: inline;">
-              <button type="submit" class="btn btn-danger btn-front">刪除</button>
-            </form>
-          </td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  </div>
-</div>
-<div class="row">
-  <div class="col" id="pagination">
-    <ul class="pagination">
+            {{#each pages}}
+            <li class="page-item">
+              <a class="page-link" href="/?page={{this.page}}">{{this.page}}</a>
+            </li>
+            {{/each}}
 
-      {{#each pages}}
-      <li class="page-item">
-        <a class="page-link" href="/?page={{this.page}}">{{this.page}}</a>
-      </li>
-      {{/each}}
-
-    </ul>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 </div>
+
+
+
+
+
+
+
 
 {{!-- for datepicker --}}
 <script type="text/javascript">

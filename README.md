@@ -8,10 +8,6 @@
 
 ![image](https://github.com/hijerry1007/myAccount/blob/master/photos/login.png)
 
-### 首頁
-
-![image](https://github.com/hijerry1007/myAccount/blob/master/photos/homepage.png)
-
 
 ## 需求
 Node.js

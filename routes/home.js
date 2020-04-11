@@ -65,7 +65,7 @@ router.get('/', authenticated, (req, res) => {
         for (let i = 0; i < records.length; i++) {
           totalAmount += records[i].amount
         }
-        return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, pages, pageData, pageNumber, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount, })
+        return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, pages, pageData, pageNumber, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount })
       })
       .catch((error) => {
         return res.status(422).json(error)
@@ -75,7 +75,7 @@ router.get('/', authenticated, (req, res) => {
     User.findByPk(req.user.id)
       .then((user) => {
         if (!user) throw new Error('User is not found')
-        console.log(selectedCategory)
+        // console.log(selectedCategory)
         return Record.findAll({
           raw: true,
           nest: true,
@@ -83,6 +83,28 @@ router.get('/', authenticated, (req, res) => {
         })
       })
       .then((records) => {
+        let homeAmount = 0
+        let foodAmount = 0
+        let transportAmount = 0
+        let entertainmentAmount = 0
+        let otherAmount = 0
+        records.forEach(record => {
+          if (record.category === '家居物業') {
+            homeAmount += record.amount
+          }
+          if (record.category === '餐飲食品') {
+            foodAmount += record.amount
+          }
+          if (record.category === '運輸交通') {
+            transportAmount += record.amount
+          }
+          if (record.category === '休閒娛樂') {
+            entertainmentAmount += record.amount
+          }
+          if (record.category === '其他') {
+            otherAmount += record.amount
+          }
+        })
         let totalPages = Math.ceil(records.length / pageSize) || 1
         const pages = []
         for (let i = 1; i < totalPages + 1; i++) {
@@ -93,7 +115,7 @@ router.get('/', authenticated, (req, res) => {
           totalAmount += records[i].amount
         }
         let pageData = records.slice(offset, offset + pageSize)
-        return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, errors, pages, pageData, pageNumber })
+        return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, errors, pages, pageData, pageNumber, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount })
       })
       .catch((error) => {
         return res.status(422).json(error)
@@ -112,6 +134,28 @@ router.get('/', authenticated, (req, res) => {
         })
       })
       .then((records) => {
+        let homeAmount = 0
+        let foodAmount = 0
+        let transportAmount = 0
+        let entertainmentAmount = 0
+        let otherAmount = 0
+        records.forEach(record => {
+          if (record.category === '家居物業') {
+            homeAmount += record.amount
+          }
+          if (record.category === '餐飲食品') {
+            foodAmount += record.amount
+          }
+          if (record.category === '運輸交通') {
+            transportAmount += record.amount
+          }
+          if (record.category === '休閒娛樂') {
+            entertainmentAmount += record.amount
+          }
+          if (record.category === '其他') {
+            otherAmount += record.amount
+          }
+        })
         let totalPages = Math.ceil(records.length / pageSize) || 1
         const pages = []
         for (let i = 1; i < totalPages + 1; i++) {
@@ -122,7 +166,7 @@ router.get('/', authenticated, (req, res) => {
         for (let i = 0; i < records.length; i++) {
           totalAmount += records[i].amount
         }
-        return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, errors, pages, pageData, pageNumber })
+        return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, errors, pages, pageData, pageNumber, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount })
       })
       .catch((error) => {
         return res.status(422).json(error)
@@ -146,6 +190,28 @@ router.get('/', authenticated, (req, res) => {
           })
         })
         .then((records) => {
+          let homeAmount = 0
+          let foodAmount = 0
+          let transportAmount = 0
+          let entertainmentAmount = 0
+          let otherAmount = 0
+          records.forEach(record => {
+            if (record.category === '家居物業') {
+              homeAmount += record.amount
+            }
+            if (record.category === '餐飲食品') {
+              foodAmount += record.amount
+            }
+            if (record.category === '運輸交通') {
+              transportAmount += record.amount
+            }
+            if (record.category === '休閒娛樂') {
+              entertainmentAmount += record.amount
+            }
+            if (record.category === '其他') {
+              otherAmount += record.amount
+            }
+          })
           let totalPages = Math.ceil(records.length / pageSize) || 1
           const pages = []
           for (let i = 1; i < totalPages + 1; i++) {
@@ -157,7 +223,7 @@ router.get('/', authenticated, (req, res) => {
           }
           let pageData = records.slice(offset, offset + pageSize)
 
-          return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, errors, pageData })
+          return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, errors, pageData, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount })
         })
         .catch((error) => {
           return res.status(422).json(error)
@@ -181,6 +247,28 @@ router.get('/', authenticated, (req, res) => {
           })
         })
         .then((records) => {
+          let homeAmount = 0
+          let foodAmount = 0
+          let transportAmount = 0
+          let entertainmentAmount = 0
+          let otherAmount = 0
+          records.forEach(record => {
+            if (record.category === '家居物業') {
+              homeAmount += record.amount
+            }
+            if (record.category === '餐飲食品') {
+              foodAmount += record.amount
+            }
+            if (record.category === '運輸交通') {
+              transportAmount += record.amount
+            }
+            if (record.category === '休閒娛樂') {
+              entertainmentAmount += record.amount
+            }
+            if (record.category === '其他') {
+              otherAmount += record.amount
+            }
+          })
           let totalPages = Math.ceil(records.length / pageSize) || 1
           const pages = []
           for (let i = 1; i < totalPages + 1; i++) {
@@ -192,7 +280,7 @@ router.get('/', authenticated, (req, res) => {
           }
           let pageData = records.slice(offset, offset + pageSize)
 
-          return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, errors, pageData })
+          return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, errors, pageData, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount })
         })
         .catch((error) => {
           return res.status(422).json(error)
@@ -223,13 +311,35 @@ router.get('/search', authenticated, (req, res) => {
       })
     })
     .then((records) => {
+      let homeAmount = 0
+      let foodAmount = 0
+      let transportAmount = 0
+      let entertainmentAmount = 0
+      let otherAmount = 0
+      records.forEach(record => {
+        if (record.category === '家居物業') {
+          homeAmount += record.amount
+        }
+        if (record.category === '餐飲食品') {
+          foodAmount += record.amount
+        }
+        if (record.category === '運輸交通') {
+          transportAmount += record.amount
+        }
+        if (record.category === '休閒娛樂') {
+          entertainmentAmount += record.amount
+        }
+        if (record.category === '其他') {
+          otherAmount += record.amount
+        }
+      })
       let totalAmount = 0
       for (let i = 0; i < records.length; i++) {
         totalAmount += records[i].amount
       }
       let pageData = records.slice(offset, offset + pageSize)
 
-      return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, pageData })
+      return res.render('index', { records: records, totalAmount: totalAmount, category: category, month: month, year: year, pageData, homeAmount, foodAmount, transportAmount, entertainmentAmount, otherAmount })
     })
     .catch((error) => {
       return res.status(422).json(error)

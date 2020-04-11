@@ -24,7 +24,7 @@
         </label>
       </div>
       <div class="col-6">
-        <input class="form-control form-control-lg" type="text" placeholder="name" name="name" value="">
+        <input class="form-control form-control-lg" type="text" placeholder="name" name="name" value="{{{new_name}}}">
       </div>
     </div>
     {{!-- shop --}}
@@ -34,7 +34,7 @@
         </label>
       </div>
       <div class="col-6">
-        <input class="form-control form-control-lg" type="text" placeholder="shop" name="shop" value="">
+        <input class="form-control form-control-lg" type="text" placeholder="shop" name="shop" value="{{{new_shop}}}">
       </div>
     </div>
     {{!-- date --}}
@@ -43,7 +43,7 @@
         <label class="col-form-label col-form-label-lg" for="date">日期*:</label>
       </div>
       <div class="input-group date col-6" id="datetimepicker1">
-        <input class="form-control form-control-lg" type="date" placeholder="date" name="date">
+        <input class="form-control form-control-lg" type="date" placeholder="date" name="date" value="{{{new_date}}}">
         <span class="input-group-addon">
           <span class="glyphicon glyphicon-calendar"></span>
         </span>
@@ -68,7 +68,8 @@
     <div class="row mb-5">
       <div class="col-2"><label class="col-form-label col-form-label-lg" for="amount">金額*:</label></div>
       <div class="col-6">
-        <input class="form-control form-control-lg" type="text" placeholder="amount" name="amount" value="">
+        <input class="form-control form-control-lg" type="text" placeholder="amount" name="amount"
+          value="{{{new_amount}}}">
       </div>
     </div>
     {{!-- edit btn --}}

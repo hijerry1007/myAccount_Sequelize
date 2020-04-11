@@ -38,16 +38,35 @@ router.post('/', authenticated, (req, res) => {
   // if (req.body.category === '其他') {
   //   initialCategoryAmount[4] += req.body.amount
   // }
-  Record.create({
-    name: req.body.name,
-    date: req.body.date,
-    category: req.body.category,
-    amount: req.body.amount,
-    shop: req.body.shop,
-    UserId: req.user.id,
-  })
-    .then(() => { return res.redirect('/') })
-    .catch((error) => { return res.status(422).json(error) })
+
+  let errors = []
+  let new_name = req.body.name
+  let new_date = req.body.date
+  let new_category = req.body.category
+  let new_shop = req.body.shop
+  let new_amount = req.body.amount
+
+  if (!new_name || !new_date || !new_category || !new_amount || !new_shop) {
+    errors.push({ message: '所有欄位都是必填' })
+  };
+
+  if (errors.length > 0) {
+    console.log(errors)
+    return res.render('new', { new_name, new_date, new_category, new_amount, new_shop, errors })
+  }
+  else {
+    Record.create({
+      name: req.body.name,
+      date: req.body.date,
+      category: req.body.category,
+      amount: req.body.amount,
+      shop: req.body.shop,
+      UserId: req.user.id,
+    })
+      .then(() => { return res.redirect('/') })
+      .catch((error) => { return res.status(422).json(error) })
+  }
+
 })
 
 //修改record頁面

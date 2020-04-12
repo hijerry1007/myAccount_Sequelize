@@ -20,24 +20,7 @@ router.get('/new', authenticated, (req, res) => {
 
 //新增一筆record
 router.post('/', authenticated, (req, res) => {
-  // let initialCategoryAmount = [0, 0, 0, 0, 0]
-  // [home, food, transport, entertainment, other]
 
-  // if (req.body.category === '家居物業') {
-  //   initialCategoryAmount[0] += req.body.amount
-  // }
-  // if (req.body.category === '餐飲食品') {
-  //   initialCategoryAmount[1] += req.body.amount
-  // }
-  // if (req.body.category === '運輸交通') {
-  //   initialCategoryAmount[2] += req.body.amount
-  // }
-  // if (req.body.category === '休閒娛樂') {
-  //   initialCategoryAmount[3] += req.body.amount
-  // }
-  // if (req.body.category === '其他') {
-  //   initialCategoryAmount[4] += req.body.amount
-  // }
 
   let errors = []
   let new_name = req.body.name
@@ -82,14 +65,17 @@ router.get('/:id/edit', authenticated, (req, res) => {
         }
       })
     })
-    .then((record) => { return res.render('edit', { record: record.get() }) })
+    .then((record) => {
+      let record_category = record.category
+      return res.render('edit', { record: record.get(), record_category })
+    })
 })
 
 //修改record
 router.put('/:id', authenticated, (req, res) => {
-  const { name, date, category, amount } = req.body
+  const { name, date, category, amount, shop } = req.body
   let errors = []
-  if (!name || !date || !category || !amount) {
+  if (!name || !date || !category || !amount || !shop) {
     errors.push({ message: '所有欄位都是必填' })
   };
 
@@ -107,6 +93,7 @@ router.put('/:id', authenticated, (req, res) => {
         record.date = date
         record.category = category
         record.amount = amount
+        record.shop = shop
         return record.save()
       })
       .then((record) => {

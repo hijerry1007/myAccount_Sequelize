@@ -58,12 +58,12 @@
       <div class="col-2"><label class="col-form-label col-form-label-lg" for="category">類別*:</label></div>
       <div class="col-6">
         <select class="form-control form-control-lg" id="category" name="category">
-          <option value="" disabled selected>請選擇類別</option>
-          <option value="家居物業">家居物業</option>
-          <option value="餐飲食品">餐飲食品</option>
-          <option value="運輸交通">運輸交通</option>
-          <option value="休閒娛樂">休閒娛樂</option>
-          <option value="其他">其他</option>
+          <option value="">請選擇類別</option>
+          <option value="家居物業" {{#if_equal record_category '家居樂業' }}selected{{/if_equal}}>家居物業</option>
+          <option value="餐飲食品" {{#if_equal record_category '餐飲食品' }}selected{{/if_equal}}>餐飲食品</option>
+          <option value="運輸交通" {{#if_equal record_category '運輸交通' }}selected{{/if_equal}}>運輸交通</option>
+          <option value="休閒娛樂" {{#if_equal record_category '休閒娛樂' }}selected{{/if_equal}}>休閒娛樂</option>
+          <option value="其他" {{#if_equal record_category '其他' }}selected{{/if_equal}}>其他</option>
         </select>
       </div>
     </div>

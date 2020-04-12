@@ -306,7 +306,8 @@ router.get('/search', authenticated, (req, res) => {
         raw: true,
         nest: true,
         where: {
-          shop: keyword
+          shop: keyword,
+          UserId: req.user.id
         }
       })
     })
